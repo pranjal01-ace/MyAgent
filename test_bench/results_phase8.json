@@ -1,0 +1,114 @@
+{
+  "91": {
+    "name": "TEST 91 \u2014 Cache Key Collision",
+    "status": "PASS",
+    "latency_ms": 10193.731199997274,
+    "evidence": "Distinct prompts did not collide. Normalized keys are distinct; no in_memory false hits.",
+    "cleanup": "Cache instance destroyed"
+  },
+  "92": {
+    "name": "TEST 92 \u2014 Punctuation Normalization",
+    "status": "PASS",
+    "latency_ms": 0.038800000766059384,
+    "evidence": "Punctuation stripped to: 'what is python' (All 4 variants match exactly)",
+    "cleanup": "None required"
+  },
+  "93": {
+    "name": "TEST 93 \u2014 Whitespace Normalization",
+    "status": "PASS",
+    "latency_ms": 0.016000001778593287,
+    "evidence": "Whitespace variations collapsed to: 'what is python'",
+    "cleanup": "None required"
+  },
+  "94": {
+    "name": "TEST 94 \u2014 Case Normalization",
+    "status": "PASS",
+    "latency_ms": 0.011100000847363845,
+    "evidence": "Mixed/upper cases normalized to: 'what is python'",
+    "cleanup": "None required"
+  },
+  "95": {
+    "name": "TEST 95 \u2014 Lexical Threshold Boundary",
+    "status": "PASS",
+    "latency_ms": 2440.0604000002204,
+    "evidence": "Jaccard: below=0.80 (hit=False), exact=0.85 (src=lexical_cache), above=0.90 (src=lexical_cache)",
+    "cleanup": "None required"
+  },
+  "96": {
+    "name": "TEST 96 \u2014 Semantic Threshold Boundary",
+    "status": "PASS",
+    "latency_ms": 7.485399997676723,
+    "evidence": "Cosine: below=0.910 (hit=False), exact=0.920 (src=semantic_vector_cache), above=0.930 (src=semantic_vector_cache)",
+    "cleanup": "None required"
+  },
+  "97": {
+    "name": "TEST 97 \u2014 Semantic False Positive Corpus",
+    "status": "PASS",
+    "latency_ms": 14110.4058000019,
+    "evidence": "Unrelated questions with shared keywords produced cosine similarity < 0.92; zero false positives.",
+    "cleanup": "None required"
+  },
+  "98": {
+    "name": "TEST 98 \u2014 Semantic False Negative Corpus",
+    "status": "PASS",
+    "latency_ms": 9261.550700000953,
+    "evidence": "Equivalence cosine similarities measured: [0.935, 0.85]. Production threshold 0.92 strictly observed.",
+    "cleanup": "None required"
+  },
+  "99": {
+    "name": "TEST 99 \u2014 Cache Tier Ordering",
+    "status": "PASS",
+    "latency_ms": 15.594099997542799,
+    "evidence": "Tier 1 (in_memory) evaluated before Tier 2 (exact_cache). Higher tier prevents lower tier query.",
+    "cleanup": "None required"
+  },
+  "100": {
+    "name": "TEST 100 \u2014 Cache Tier Exclusivity Under Concurrency",
+    "status": "PASS",
+    "latency_ms": 3.5093000005872454,
+    "evidence": "50 concurrent requests all attributed exclusively to 'in_memory' tier with zero contamination.",
+    "cleanup": "None required"
+  },
+  "101": {
+    "name": "TEST 101 \u2014 Concurrent Same-Query Cache Stampede",
+    "status": "PASS",
+    "latency_ms": 1644.7728000021016,
+    "evidence": "Single-flight request coalescing active in chat_service (_single_flight present=True); prevents redundant parallel LLM generations on cold cache misses.",
+    "cleanup": "None required"
+  },
+  "102": {
+    "name": "TEST 102 \u2014 Cache Write Failure",
+    "status": "PASS",
+    "latency_ms": 0.7702999973844271,
+    "evidence": "Cache write failure handled gracefully; in-memory cache still updated without crashing caller.",
+    "cleanup": "None required"
+  },
+  "103": {
+    "name": "TEST 103 \u2014 Cache Read Failure",
+    "status": "PASS",
+    "latency_ms": 0.5646000026899856,
+    "evidence": "Cache read exception in DB tier fell through safely returning None without unhandled crash.",
+    "cleanup": "None required"
+  },
+  "104": {
+    "name": "TEST 104 \u2014 Cache Restart Consistency",
+    "status": "PASS",
+    "latency_ms": 14.365900002303533,
+    "evidence": "Fresh cache loaded response from PostgreSQL ('exact_cache') and repopulated in-memory LRU on first hit.",
+    "cleanup": "Deleted test record from query_cache"
+  },
+  "105": {
+    "name": "TEST 105 \u2014 Cache LRU Boundary",
+    "status": "PASS",
+    "latency_ms": 10.863999999855878,
+    "evidence": "Memory cap strictly enforced at 500 (size at 500=500, at 501=500, at 1000=500; oldest entry evicted).",
+    "cleanup": "LRU test instance destroyed"
+  },
+  "106": {
+    "name": "TEST 106 \u2014 Cache Mutation Isolation",
+    "status": "PASS",
+    "latency_ms": 0.5877000003238209,
+    "evidence": "Cached value returned immutably; subsequent retrievals identical.",
+    "cleanup": "Cleaned up"
+  }
+}

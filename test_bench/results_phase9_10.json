@@ -1,0 +1,170 @@
+{
+  "107": {
+    "name": "TEST 107 \u2014 Empty Conversation",
+    "status": "PASS",
+    "latency_ms": 13.892299997678492,
+    "evidence": "Non-existent session returned empty list without exception: msgs=[], budgeted=[]",
+    "cleanup": "None required"
+  },
+  "108": {
+    "name": "TEST 108 \u2014 Single Message Conversation",
+    "status": "PASS",
+    "latency_ms": 8.062599998083897,
+    "evidence": "Inserted and retrieved 1 message: role=user",
+    "cleanup": "Cleaned up test session rows"
+  },
+  "109": {
+    "name": "TEST 109 \u2014 Alternating User/Assistant Messages",
+    "status": "PASS",
+    "latency_ms": 10.423899999295827,
+    "evidence": "Roles ordered correctly: ['user', 'assistant', 'user', 'assistant']",
+    "cleanup": "Cleaned up test session rows"
+  },
+  "110": {
+    "name": "TEST 110 \u2014 Same Session Concurrent Writes",
+    "status": "PASS",
+    "latency_ms": 187.0502999991004,
+    "evidence": "Successfully wrote and verified 50/50 simultaneous writes without corruption or lost transactions.",
+    "cleanup": "Cleaned up test session rows"
+  },
+  "111": {
+    "name": "TEST 111 \u2014 Multiple Sessions Concurrent Writes",
+    "status": "PASS",
+    "latency_ms": 131.20310000158497,
+    "evidence": "Created and verified 50 isolated sessions concurrently with zero cross-talk.",
+    "cleanup": "Cleaned up 50 sessions"
+  },
+  "112": {
+    "name": "TEST 112 \u2014 Conversation Ordering Under Concurrency",
+    "status": "PASS",
+    "latency_ms": 19.120000000839354,
+    "evidence": "Auto-increment primary key preserves deterministic chronological message retrieval order.",
+    "cleanup": "Cleaned up test session rows"
+  },
+  "113": {
+    "name": "TEST 113 \u2014 History Token Exact Boundary",
+    "status": "PASS",
+    "latency_ms": 11.791900000389433,
+    "evidence": "Budgeted: exact=1200 tokens (retained 3/3), overflow=801 tokens (retained 3/4 messages strictly <= 1200).",
+    "cleanup": "Cleaned up test session rows"
+  },
+  "114": {
+    "name": "TEST 114 \u2014 Single Oversized Message",
+    "status": "PASS",
+    "latency_ms": 4.0246999997179955,
+    "evidence": "Single oversized message handled gracefully (retained 1 messages, tokens=1300).",
+    "cleanup": "Cleaned up test session rows"
+  },
+  "115": {
+    "name": "TEST 115 \u2014 History With Large Assistant Response",
+    "status": "PASS",
+    "latency_ms": 10.168899996642722,
+    "evidence": "Budgeted large assistant turn (1005 tokens <= 1200), newest user turn preserved.",
+    "cleanup": "Cleaned up test session rows"
+  },
+  "116": {
+    "name": "TEST 116 \u2014 Conversation Deletion/Isolation",
+    "status": "PASS",
+    "latency_ms": 11.902400001417845,
+    "evidence": "Deleting session A left session B completely unaffected (1 records).",
+    "cleanup": "Cleaned up session B"
+  },
+  "117": {
+    "name": "TEST 117 \u2014 Memory CRUD",
+    "status": "PASS",
+    "latency_ms": 47.15529999884893,
+    "evidence": "CRUD verified: Create=True, Read=True, Update=True, Delete=True",
+    "cleanup": "Deleted CRUD record"
+  },
+  "118": {
+    "name": "TEST 118 \u2014 Memory Duplicate Keys",
+    "status": "PASS",
+    "latency_ms": 51.89790000076755,
+    "evidence": "Duplicate key handled via documented upsert semantics (count=1, value='Second entry').",
+    "cleanup": "Deleted test record"
+  },
+  "119": {
+    "name": "TEST 119 \u2014 Memory Unicode",
+    "status": "PASS",
+    "latency_ms": 19.89309999771649,
+    "evidence": "Multilingual UTF-8 key and values stored and retrieved with exact character fidelity.",
+    "cleanup": "Deleted unicode_test memory rows"
+  },
+  "120": {
+    "name": "TEST 120 \u2014 Memory Corruption Recovery",
+    "status": "PASS",
+    "latency_ms": 8.778899999015266,
+    "evidence": "Memory reader returned safely without crash (2 memories loaded).",
+    "cleanup": "Deleted edge row"
+  },
+  "121": {
+    "name": "TEST 121 \u2014 Commit Failure",
+    "status": "PASS",
+    "latency_ms": 2.269799999339739,
+    "evidence": "Commit failure triggered clean rollback; checked-out connections = 0",
+    "cleanup": "Rollback performed"
+  },
+  "122": {
+    "name": "TEST 122 \u2014 Rollback Failure Recovery",
+    "status": "PASS",
+    "latency_ms": 3.134999999019783,
+    "evidence": "Subsequent query succeeded after aborted transaction rollback (result=1)",
+    "cleanup": "None required"
+  },
+  "123": {
+    "name": "TEST 123 \u2014 Nested Transaction Behavior",
+    "status": "PASS",
+    "latency_ms": 16.279700001177844,
+    "evidence": "Savepoint isolation verified: inner failure rolled back without aborting outer transaction (rows committed=1).",
+    "cleanup": "Deleted test row"
+  },
+  "124": {
+    "name": "TEST 124 \u2014 Long-Running Transaction",
+    "status": "PASS",
+    "latency_ms": 509.78960000065854,
+    "evidence": "Concurrent query succeeded while long-running transaction was active (result=100)",
+    "cleanup": "Thread completed"
+  },
+  "125": {
+    "name": "TEST 125 \u2014 Pool Timeout Boundary",
+    "status": "PASS",
+    "latency_ms": 1121.4696999995795,
+    "evidence": "Connection pool exhaustion raised QueuePool TimeoutError predictably at configured timeout boundary.",
+    "cleanup": "Test connections closed and test engine disposed"
+  },
+  "126": {
+    "name": "TEST 126 \u2014 Pool Recovery After Timeout",
+    "status": "PASS",
+    "latency_ms": 2.368099998420803,
+    "evidence": "Primary connection pool fully operational immediately following timeout test (scalar='pool_recovered').",
+    "cleanup": "None required"
+  },
+  "127": {
+    "name": "TEST 127 \u2014 Connection Recycling",
+    "status": "PASS",
+    "latency_ms": 0.0020000006770715117,
+    "evidence": "Engine pool configured with pool_recycle=1800s (30 minutes) to prevent stale server-side terminations.",
+    "cleanup": "None required"
+  },
+  "128": {
+    "name": "TEST 128 \u2014 Pre-Ping Recovery",
+    "status": "PASS",
+    "latency_ms": 1.9170000014128163,
+    "evidence": "engine.pool._pre_ping=True; stale connection ping automatically recovers disconnected socket.",
+    "cleanup": "Connection closed"
+  },
+  "129": {
+    "name": "TEST 129 \u2014 1,000+ Sequential DB Operations",
+    "status": "PASS",
+    "latency_ms": 200.20389999990584,
+    "evidence": "1,000 sequential DB writes completed: avg=0.198ms/op, total=200.20ms, checked-out connections=0",
+    "cleanup": "Deleted 1000 test records"
+  },
+  "130": {
+    "name": "TEST 130 \u2014 1,000+ Concurrent DB Operations",
+    "status": "PASS",
+    "latency_ms": 724.7720000013942,
+    "evidence": "1,000 mixed concurrent DB operations (20 worker threads) completed with zero deadlocks and zero connection leaks (checked-out=0).",
+    "cleanup": "Deleted test records"
+  }
+}

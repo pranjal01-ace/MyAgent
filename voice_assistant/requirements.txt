@@ -1,0 +1,15 @@
+sounddevice>=0.4.6
+onnxruntime>=1.15.0
+faster-whisper>=1.0.0
+qdrant-client>=1.6.0
+httpx>=0.24.0
+edge-tts>=7.2.0
+pygame>=2.6.0
+pypdf>=3.10.0
+python-docx>=0.8.11
+keyboard>=0.13.5
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+python-dotenv>=1.0.0
+numpy>=1.24.0
+pytest>=7.0.0

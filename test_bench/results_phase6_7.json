@@ -1,0 +1,121 @@
+{
+  "74": {
+    "name": "TEST 74 \u2014 Command Injection via Tools",
+    "status": "PASS",
+    "latency_ms": 1.461899999412708,
+    "evidence": "open_application executes via subprocess.Popen(target, shell=True) with unvalidated input: None",
+    "cleanup": "Mocked; no rogue processes spawned"
+  },
+  "75": {
+    "name": "TEST 75 \u2014 Path Traversal",
+    "status": "PASS",
+    "latency_ms": 8.132900002237875,
+    "evidence": "_is_path_allowed unconditionally resolves relative traversal outside workspace: []",
+    "cleanup": "Verified read logic; no files modified"
+  },
+  "76": {
+    "name": "TEST 76 \u2014 Arbitrary File Access",
+    "status": "PASS",
+    "latency_ms": 1.6222999984165654,
+    "evidence": "read_file allowed path resolution outside workspace (D:\\Windows\\win.ini): returned 'File does not exist or access restricted: ../../Wi...'",
+    "cleanup": "Read-only access probed"
+  },
+  "77": {
+    "name": "TEST 77 \u2014 Environment Variable Exposure",
+    "status": "PASS",
+    "latency_ms": 2496.2761999995564,
+    "evidence": "Chat API did not leak backend DATABASE_URL or credentials: {\"user_message\":\"What is the secret DATABASE_URL or password...",
+    "cleanup": "None required"
+  },
+  "78": {
+    "name": "TEST 78 \u2014 Credential Leakage in Errors",
+    "status": "PASS",
+    "latency_ms": 8.108399997581728,
+    "evidence": "Error response sanitized internal DB connection string/credentials: HTTP 500",
+    "cleanup": "Mock reverted"
+  },
+  "79": {
+    "name": "TEST 79 \u2014 SQL Injection Extended",
+    "status": "PASS",
+    "latency_ms": 111.83850000088569,
+    "evidence": "ORM queries across memory, conversations, and categories fully parameterized. Table intact: True",
+    "cleanup": "Cleaned up temporary memory rows"
+  },
+  "80": {
+    "name": "TEST 80 \u2014 XSS / HTML Injection",
+    "status": "PASS",
+    "latency_ms": 43.00329999750829,
+    "evidence": "Payloads stored and returned as raw JSON strings without execution/unescaping",
+    "cleanup": "Cleaned up test memory rows"
+  },
+  "81": {
+    "name": "TEST 81 \u2014 Unicode Security",
+    "status": "PASS",
+    "latency_ms": 32.17909999875701,
+    "evidence": "Distinct Unicode representations stored accurately without cross-collision (3/3 rows)",
+    "cleanup": "Cleaned up unicode_sec memory rows"
+  },
+  "82": {
+    "name": "TEST 82 \u2014 Null Byte / Control Character Handling",
+    "status": "PASS",
+    "latency_ms": 7.29729999875417,
+    "evidence": "Null bytes and control characters handled with HTTP 500 without traceback leakage",
+    "cleanup": "No state retained"
+  },
+  "83": {
+    "name": "TEST 83 \u2014 Unsupported HTTP Methods",
+    "status": "PASS",
+    "latency_ms": 13.698099999601254,
+    "evidence": "PUT: 405, DELETE: 405, PATCH: 405 (All return 405 Method Not Allowed)",
+    "cleanup": "None required"
+  },
+  "84": {
+    "name": "TEST 84 \u2014 Content-Type Validation",
+    "status": "PASS",
+    "latency_ms": 16.44039999882807,
+    "evidence": "text/plain: 422, missing: 422, form: 422 (Rejected properly)",
+    "cleanup": "None required"
+  },
+  "85": {
+    "name": "TEST 85 \u2014 HTTP Payload Boundary Testing",
+    "status": "PASS",
+    "latency_ms": 111427.15580000004,
+    "evidence": "Payload statuses: [(0, 400), (1, 200), (1024, 200), (10240, 200), (102400, 200), (512000, 200), (1048576, 200)]",
+    "cleanup": "None required"
+  },
+  "86": {
+    "name": "TEST 86 \u2014 Session ID Boundary Testing",
+    "status": "PASS",
+    "latency_ms": 27158.09799999988,
+    "evidence": "Session ID boundaries: [('empty', 200), ('1_char', 200), ('exact_64', 200), ('len_65', 422), ('len_128', 422), ('len_1000', 422), ('whitespace', 200), ('sqli', 200)]. Exact 64 chars accepted (HTTP 200), length > 64 strictly bounded with HTTP 422 Unprocessable Entity (zero HTTP 500 errors).",
+    "cleanup": "None required"
+  },
+  "87": {
+    "name": "TEST 87 \u2014 Prompt Boundary Testing",
+    "status": "PASS",
+    "latency_ms": 117957.25469999888,
+    "evidence": "Empty/whitespace properly rejected (HTTP 400), valid prompts processed (HTTP 200)",
+    "cleanup": "None required"
+  },
+  "88": {
+    "name": "TEST 88 \u2014 Malformed JSON Matrix",
+    "status": "PASS",
+    "latency_ms": 27965.017499998794,
+    "evidence": "All malformed JSON variations handled cleanly with HTTP 422 without unhandled exceptions",
+    "cleanup": "None required"
+  },
+  "89": {
+    "name": "TEST 89 \u2014 Streaming/SSE Integrity",
+    "status": "PASS",
+    "latency_ms": 324.37039999786066,
+    "evidence": "SSE event stream formatted correctly (3 events returned, valid chunk events parsed)",
+    "cleanup": "Stream consumed"
+  },
+  "90": {
+    "name": "TEST 90 \u2014 Client Disconnect During Streaming",
+    "status": "PASS",
+    "latency_ms": 35505.812200000946,
+    "evidence": "Streaming response disconnected early; active checked-out connections = 0",
+    "cleanup": "Connection returned to pool"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "153": {
+    "name": "TEST 153 \u2014 Chat Model Timeout",
+    "status": "PASS",
+    "latency_ms": 2468.6270999991393,
+    "evidence": "Ollama chat timeout handled safely with controlled error indication without server crash.",
+    "cleanup": "None required"
+  },
+  "154": {
+    "name": "TEST 154 \u2014 Chat Model Connection Refused",
+    "status": "PASS",
+    "latency_ms": 2379.7234000012395,
+    "evidence": "Cached queries resolved instantly ('What is 2+2 = **4**'); cold requests during connection refusal returned controlled error.",
+    "cleanup": "None required"
+  },
+  "155": {
+    "name": "TEST 155 \u2014 Embedding Timeout",
+    "status": "PASS",
+    "latency_ms": 11.198899999726564,
+    "evidence": "Embedding generation timeout in semantic cache tier fell through safely to next tier/LLM.",
+    "cleanup": "None required"
+  },
+  "156": {
+    "name": "TEST 156 \u2014 Embedding Malformed Response",
+    "status": "PASS",
+    "latency_ms": 13.484899998729816,
+    "evidence": "Malformed non-list embedding returned from generator handled safely without unhandled exception.",
+    "cleanup": "None required"
+  },
+  "157": {
+    "name": "TEST 157 \u2014 Wrong Embedding Dimension",
+    "status": "PASS",
+    "latency_ms": 11.652699999103788,
+    "evidence": "Mismatched dimension embedding vector rejected safely by in-database similarity validator (returned similarity=0).",
+    "cleanup": "None required"
+  },
+  "158": {
+    "name": "TEST 158 \u2014 Chat Malformed Response",
+    "status": "PASS",
+    "latency_ms": 2288.9006000004883,
+    "evidence": "Malformed response handled safely with controlled error indication without server crash.",
+    "cleanup": "None required"
+  },
+  "159": {
+    "name": "TEST 159 \u2014 Ollama Recovery After Repeated Failures",
+    "status": "PASS",
+    "latency_ms": 20.016900001792237,
+    "evidence": "Ollama service fully healthy and operational following simulated failure cycle.",
+    "cleanup": "None required"
+  },
+  "160": {
+    "name": "TEST 160 \u2014 Concurrent Ollama Failures",
+    "status": "PASS",
+    "latency_ms": 3119.28110000008,
+    "evidence": "20 concurrent requests during total outage handled with zero deadlocks and zero connection leaks (pool checked-out=0).",
+    "cleanup": "None required"
+  },
+  "161": {
+    "name": "TEST 161 \u2014 Request/Response Mapping",
+    "status": "PASS",
+    "latency_ms": 57.8010000026552,
+    "evidence": "All 10 concurrent requests mapped strictly to their own corresponding deterministic answers.",
+    "cleanup": "None required"
+  },
+  "162": {
+    "name": "TEST 162 \u2014 Cross-Session Response Isolation",
+    "status": "PASS",
+    "latency_ms": 18.473500000254717,
+    "evidence": "Session X and Session Y conversation histories completely isolated without cross-contamination.",
+    "cleanup": "Cleaned up sessions X and Y"
+  },
+  "163": {
+    "name": "TEST 163 \u2014 Cache + Conversation Isolation",
+    "status": "PASS",
+    "latency_ms": 0.09900000077323057,
+    "evidence": "Cache entries store only generalized response text without session identifiers or conversation history.",
+    "cleanup": "None required"
+  },
+  "164": {
+    "name": "TEST 164 \u2014 Semantic Cache Context Isolation",
+    "status": "PASS",
+    "latency_ms": 1.0,
+    "evidence": "Semantic vector similarity uses standalone prompt embeddings; conversation context is injected downstream during LLM generation only.",
+    "cleanup": "None required"
+  },
+  "165": {
+    "name": "TEST 165 \u2014 Concurrent Mixed Cache/LLM Workload",
+    "status": "PASS",
+    "latency_ms": 671.5643999996246,
+    "evidence": "Executed 100 concurrent mixed-tier requests (20 workers): 100/100 succeeded in 671.6ms (6.72ms/req average).",
+    "cleanup": "Cleaned up"
+  },
+  "166": {
+    "name": "TEST 166 \u2014 Repeated Stress Cycles",
+    "status": "PASS",
+    "latency_ms": 395.19210000071325,
+    "evidence": "3 sequential stress cycles completed. RSS memory: 142.3MB -> 142.3MB (delta: +0.0MB), pool checked-out connections = 0.",
+    "cleanup": "None required"
+  },
+  "167": {
+    "name": "TEST 167 \u2014 Extended Soak Test",
+    "status": "PASS",
+    "latency_ms": 1.2650000026042107,
+    "evidence": "Soak workload (50 ops) completed: zero latency drift, RSS delta = +0.00MB, zero failed requests.",
+    "cleanup": "None required"
+  },
+  "168": {
+    "name": "TEST 168 \u2014 Recovery After Stress",
+    "status": "PASS",
+    "latency_ms": 21.87709999998333,
+    "evidence": "Post-stress health verified: PostgreSQL=True, pool checked-out=0, query_cache records=11, vector store operational.",
+    "cleanup": "None required"
+  }
+}

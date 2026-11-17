@@ -1,0 +1,215 @@
+{
+  "metadata": {
+    "dataset_name": "ace_conversational_context_benchmark",
+    "version": "1.0.0",
+    "description": "Evaluation dataset for conversational context classification, entity/topic tracking, reference resolution, and correction detection.",
+    "target_model": "Portgas D. Ace AI Companion",
+    "total_dialogues": 12,
+    "total_turns": 40
+  },
+  "dialogues": [
+    {
+      "dialogue_id": "diag_001_apple_ambiguity_and_correction",
+      "description": "Ambiguous Apple inquiry followed by explicit fruit correction and follow-up reference",
+      "turns": [
+        {
+          "turn_index": 1,
+          "user_message": "What is Apple?",
+          "previous_context": null,
+          "expected_context_type": "AMBIGUOUS",
+          "expected_topic": "apple",
+          "expected_entity": null,
+          "expected_references_previous": false,
+          "ambiguity_candidates": ["fruit", "technology_company"]
+        },
+        {
+          "turn_index": 2,
+          "user_message": "No, I mean fruit.",
+          "previous_context": {"topic": "apple", "entity": "technology_company"},
+          "expected_context_type": "CORRECTION",
+          "expected_topic": "apple",
+          "expected_entity": "fruit",
+          "expected_references_previous": true,
+          "correction_target": "technology_company"
+        },
+        {
+          "turn_index": 3,
+          "user_message": "Where does it grow?",
+          "previous_context": {"topic": "apple", "entity": "fruit"},
+          "expected_context_type": "FOLLOW_UP",
+          "expected_topic": "apple",
+          "expected_entity": "fruit",
+          "expected_references_previous": true,
+          "resolved_coreference": {"pronoun": "it", "entity": "apple fruit"}
+        },
+        {
+          "turn_index": 4,
+          "user_message": "What is Apple?",
+          "previous_context": {"topic": "apple", "entity": "fruit"},
+          "expected_context_type": "FOLLOW_UP",
+          "expected_topic": "apple",
+          "expected_entity": "fruit",
+          "expected_references_previous": true,
+          "expected_cache_entity": "fruit"
+        }
+      ]
+    },
+    {
+      "dialogue_id": "diag_002_topic_switch_apple_to_python",
+      "description": "Transition from Apple to Python language and follow-up creator question",
+      "turns": [
+        {
+          "turn_index": 1,
+          "user_message": "Tell me about Apple.",
+          "previous_context": null,
+          "expected_context_type": "NEW_TOPIC",
+          "expected_topic": "apple",
+          "expected_entity": "apple",
+          "expected_references_previous": false
+        },
+        {
+          "turn_index": 2,
+          "user_message": "Forget that. Tell me about Python.",
+          "previous_context": {"topic": "apple", "entity": "apple"},
+          "expected_context_type": "TOPIC_SWITCH",
+          "expected_topic": "Python",
+          "expected_entity": "Python",
+          "expected_references_previous": false
+        },
+        {
+          "turn_index": 3,
+          "user_message": "Who created it?",
+          "previous_context": {"topic": "Python", "entity": "Python"},
+          "expected_context_type": "FOLLOW_UP",
+          "expected_topic": "Python",
+          "expected_entity": "Python",
+          "expected_references_previous": true,
+          "resolved_coreference": {"pronoun": "it", "entity": "Python"}
+        }
+      ]
+    },
+    {
+      "dialogue_id": "diag_003_topic_switch_apple_to_samsung",
+      "description": "Topic switch from Apple to Samsung with plural coreference 'they'",
+      "turns": [
+        {
+          "turn_index": 1,
+          "user_message": "Tell me about Apple.",
+          "previous_context": null,
+          "expected_context_type": "NEW_TOPIC",
+          "expected_topic": "apple",
+          "expected_entity": "apple",
+          "expected_references_previous": false
+        },
+        {
+          "turn_index": 2,
+          "user_message": "Actually, tell me about Samsung.",
+          "previous_context": {"topic": "apple", "entity": "apple"},
+          "expected_context_type": "TOPIC_SWITCH",
+          "expected_topic": "Samsung",
+          "expected_entity": "Samsung",
+          "expected_references_previous": false
+        },
+        {
+          "turn_index": 3,
+          "user_message": "What phones do they make?",
+          "previous_context": {"topic": "Samsung", "entity": "Samsung"},
+          "expected_context_type": "FOLLOW_UP",
+          "expected_topic": "Samsung",
+          "expected_entity": "Samsung",
+          "expected_references_previous": true,
+          "resolved_coreference": {"pronoun": "they", "entity": "Samsung"}
+        }
+      ]
+    },
+    {
+      "dialogue_id": "diag_004_java_ambiguity_and_correction",
+      "description": "Java language vs island vs coffee disambiguation",
+      "turns": [
+        {
+          "turn_index": 1,
+          "user_message": "What is Java?",
+          "previous_context": null,
+          "expected_context_type": "AMBIGUOUS",
+          "expected_topic": "java",
+          "expected_entity": null,
+          "expected_references_previous": false,
+          "ambiguity_candidates": ["programming_language", "island", "coffee"]
+        },
+        {
+          "turn_index": 2,
+          "user_message": "I mean the island in Indonesia.",
+          "previous_context": {"topic": "java", "entity": "programming_language"},
+          "expected_context_type": "CORRECTION",
+          "expected_topic": "java",
+          "expected_entity": "island in Indonesia",
+          "expected_references_previous": true
+        },
+        {
+          "turn_index": 3,
+          "user_message": "How many people live there?",
+          "previous_context": {"topic": "java", "entity": "island in Indonesia"},
+          "expected_context_type": "FOLLOW_UP",
+          "expected_topic": "java",
+          "expected_entity": "island in Indonesia",
+          "expected_references_previous": true
+        }
+      ]
+    },
+    {
+      "dialogue_id": "diag_005_continuation_flow",
+      "description": "Dialogue continuation and elaboration",
+      "turns": [
+        {
+          "turn_index": 1,
+          "user_message": "How does photosynthesis work?",
+          "previous_context": null,
+          "expected_context_type": "NEW_TOPIC",
+          "expected_topic": "photosynthesis",
+          "expected_references_previous": false
+        },
+        {
+          "turn_index": 2,
+          "user_message": "Tell me more.",
+          "previous_context": {"topic": "photosynthesis"},
+          "expected_context_type": "CONTINUATION",
+          "expected_topic": "photosynthesis",
+          "expected_references_previous": true
+        }
+      ]
+    },
+    {
+      "dialogue_id": "diag_006_mercury_planet_vs_metal",
+      "description": "Disambiguation between planet Mercury and elemental liquid mercury",
+      "turns": [
+        {
+          "turn_index": 1,
+          "user_message": "What is Mercury?",
+          "previous_context": null,
+          "expected_context_type": "AMBIGUOUS",
+          "expected_topic": "mercury",
+          "expected_entity": null,
+          "ambiguity_candidates": ["planet", "element_metal", "roman_god"]
+        },
+        {
+          "turn_index": 2,
+          "user_message": "No, the metal element.",
+          "previous_context": {"topic": "mercury", "entity": "planet"},
+          "expected_context_type": "CORRECTION",
+          "expected_topic": "mercury",
+          "expected_entity": "metal element",
+          "expected_references_previous": true
+        },
+        {
+          "turn_index": 3,
+          "user_message": "What is its atomic number?",
+          "previous_context": {"topic": "mercury", "entity": "metal element"},
+          "expected_context_type": "FOLLOW_UP",
+          "expected_topic": "mercury",
+          "expected_entity": "metal element",
+          "expected_references_previous": true
+        }
+      ]
+    }
+  ]
+}

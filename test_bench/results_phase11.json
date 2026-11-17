@@ -1,0 +1,156 @@
+{
+  "131": {
+    "name": "TEST 131 \u2014 Vector Dimension Boundary",
+    "status": "PASS",
+    "latency_ms": 21.30639999813866,
+    "evidence": "Dimension boundaries tested {'0': 'handled', '1': 'handled', '767': 'handled', '768': 'handled', '769': 'handled', '2000': 'handled', 'None': 'rejected_none'}. 768D is native; mismatched dims handled safely without DB crash.",
+    "cleanup": "None required"
+  },
+  "132": {
+    "name": "TEST 132 \u2014 Zero Vector",
+    "status": "PASS",
+    "latency_ms": 31.870399998297216,
+    "evidence": "Zero vector query handled safely with 0.0 cosine similarity (no ZeroDivisionError crash).",
+    "cleanup": "Cleaned collection"
+  },
+  "133": {
+    "name": "TEST 133 \u2014 Identical Vectors",
+    "status": "PASS",
+    "latency_ms": 7.559200003015576,
+    "evidence": "Identical unit vectors produced cosine similarity = 1.000000 (expected 1.0)",
+    "cleanup": "Cleaned collection"
+  },
+  "134": {
+    "name": "TEST 134 \u2014 Orthogonal Vectors",
+    "status": "PASS",
+    "latency_ms": 6.854899998870678,
+    "evidence": "Orthogonal vectors produced cosine similarity = 0.000000 (expected 0.0)",
+    "cleanup": "Cleaned collection"
+  },
+  "135": {
+    "name": "TEST 135 \u2014 Opposite Vectors",
+    "status": "PASS",
+    "latency_ms": 7.225900000776164,
+    "evidence": "Opposite vectors produced cosine similarity = -1.000000 (expected -1.0)",
+    "cleanup": "Cleaned collection"
+  },
+  "136": {
+    "name": "TEST 136 \u2014 NaN / Infinity Vector Values",
+    "status": "PASS",
+    "latency_ms": 4.320300002291333,
+    "evidence": "NaN/Infinity vector value safely handled/rejected without database or server crash.",
+    "cleanup": "None required"
+  },
+  "137": {
+    "name": "TEST 137 \u2014 Empty Vector Dataset",
+    "status": "PASS",
+    "latency_ms": 2.999299998919014,
+    "evidence": "Empty collection search returned empty list without exception: []",
+    "cleanup": "None required"
+  },
+  "138": {
+    "name": "TEST 138 \u2014 Single Vector Dataset",
+    "status": "PASS",
+    "latency_ms": 7.421599999361206,
+    "evidence": "Single vector dataset returned exact record: text='Solo doc'",
+    "cleanup": "Cleaned collection"
+  },
+  "139": {
+    "name": "TEST 139 \u2014 top_k Boundary Matrix",
+    "status": "PASS",
+    "latency_ms": 45.81260000122711,
+    "evidence": "top_k matrix results (dataset size=5): {'0': 0, '1': 1, '2': 2, '5': 5, '10': 5, '-1': 0, '10000': 5}",
+    "cleanup": "Cleaned collection"
+  },
+  "140": {
+    "name": "TEST 140 \u2014 Vector Ranking Tie",
+    "status": "PASS",
+    "latency_ms": 12.597599998116493,
+    "evidence": "Equal similarity vectors both returned with identical scores (1.0000).",
+    "cleanup": "Cleaned collection"
+  },
+  "141": {
+    "name": "TEST 141 \u2014 Vector Ranking Accuracy",
+    "status": "PASS",
+    "latency_ms": 12.354499998764368,
+    "evidence": "Vectors ranked strictly in descending cosine similarity: ['Rank 1', 'Rank 2', 'Rank 3']",
+    "cleanup": "Cleaned collection"
+  },
+  "142": {
+    "name": "TEST 142 \u2014 Vector Search Cross-Collection Isolation",
+    "status": "PASS",
+    "latency_ms": 15.641199999663513,
+    "evidence": "Queries strictly partitioned by collection_name; no cross-collection leakage.",
+    "cleanup": "Cleaned collections A and B"
+  },
+  "143": {
+    "name": "TEST 143 \u2014 Vector Metadata Isolation",
+    "status": "PASS",
+    "latency_ms": 10.386199999629753,
+    "evidence": "Metadata accurately bound to corresponding vector: ['book_alpha.pdf', 'book_beta.pdf']",
+    "cleanup": "Cleaned collection"
+  },
+  "144": {
+    "name": "TEST 144 \u2014 Duplicate Vector Ingestion",
+    "status": "PASS",
+    "latency_ms": 12.20610000018496,
+    "evidence": "Duplicate vectors appended as independent chunk records (count=2) as per production append design.",
+    "cleanup": "Cleaned collection"
+  },
+  "145": {
+    "name": "TEST 145 \u2014 Concurrent Vector Insert/Search",
+    "status": "PASS",
+    "latency_ms": 169.56389999904786,
+    "evidence": "Executed 20 concurrent inserts and 20 concurrent searches without deadlocks or corruption.",
+    "cleanup": "Cleaned collection"
+  },
+  "146": {
+    "name": "TEST 146 \u2014 Batch Partial Failure",
+    "status": "PASS",
+    "latency_ms": 6.451699999161065,
+    "evidence": "Batch partial failure raised exception cleanly; transaction aborted without partial orphan corruption.",
+    "cleanup": "Cleaned collection"
+  },
+  "147": {
+    "name": "TEST 147 \u2014 Batch Empty Input",
+    "status": "PASS",
+    "latency_ms": 0.0034000004234258085,
+    "evidence": "Empty batch input handled as no-op safely (returned None).",
+    "cleanup": "None required"
+  },
+  "148": {
+    "name": "TEST 148 \u2014 Batch Size Boundaries",
+    "status": "PASS",
+    "latency_ms": 1603.494499999215,
+    "evidence": "Batch ingestion timings: 1=4.7ms, 10=29.2ms, 100=263.8ms, 500=1292.2ms.",
+    "cleanup": "Cleaned collection"
+  },
+  "149": {
+    "name": "TEST 149 \u2014 Vector Search Performance Regression",
+    "status": "LIMITATION",
+    "latency_ms": 15.0,
+    "evidence": "PostgresVectorStore executes sequential unindexed table scans (O(N)): 100 vectors = 38.6ms, 1k = 361.2ms, 5k = 1,770.8ms, 10k = 3,552.1ms, 20k = 7,301.4ms. Scalability limitation due to lack of HNSW/IVFFlat index in PostgreSQL.",
+    "cleanup": "None required"
+  },
+  "150": {
+    "name": "TEST 150 \u2014 Vector Store Failover",
+    "status": "PASS",
+    "latency_ms": 0.6940000021131709,
+    "evidence": "Primary failure caught and handled cleanly without unhandled server crash.",
+    "cleanup": "None required"
+  },
+  "151": {
+    "name": "TEST 151 \u2014 Vector Store Recovery",
+    "status": "PASS",
+    "latency_ms": 4.133300000830786,
+    "evidence": "PostgresVectorStore immediately operational after simulated outage (returned 0 rows).",
+    "cleanup": "None required"
+  },
+  "152": {
+    "name": "TEST 152 \u2014 Cross-Store Consistency",
+    "status": "NOT IMPLEMENTED",
+    "latency_ms": 1.0,
+    "evidence": "Cross-store bi-directional synchronization between PostgreSQL and Qdrant fallback store is not implemented in production codebase.",
+    "cleanup": "None required"
+  }
+}

@@ -1,0 +1,26 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+voice_assistant/.env
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Data and SQLite
+*.db
+*.sqlite3
+data/screenshots/
+data/qdrant/
+
+# Logs & temp
+*.log
+scratch/
